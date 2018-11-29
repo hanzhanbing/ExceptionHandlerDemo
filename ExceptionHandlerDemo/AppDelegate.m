@@ -50,18 +50,19 @@ void UncaughtExceptionHandler(NSException *exception) {
     
     SKPSMTPMessage *message = [[SKPSMTPMessage alloc]init];
     message.fromEmail = @"15737936517@163.com";
-    message.toEmail = @"1655661337@qq.com";
-    message.relayHost = @"smtp.163.com";
+    message.toEmail = @"hanzhanbing@evcoming.com";
+    message.ccEmail = @"zengyulu@evcoming.com";
+    message.relayHost = @"smtp.163.com"; //smtp.ym.163.com（网易企业邮箱）smtp.163.com（网易邮箱）
     message.requiresAuth = YES;
     message.login = @"15737936517@163.com";
     message.pass = @"zyl5201314";
     message.subject = @"小依休iOS端崩溃日志";
     message.wantsSecure = YES;
+    message.delegate = self;
     
-    NSDictionary *plainPart=[NSDictionary dictionaryWithObjectsAndKeys:@"text/plain",kSKPSMTPPartContentTypeKey,[NSString stringWithCString:[content UTF8String] encoding:NSUTF8StringEncoding],kSKPSMTPPartMessageKey,@"8bit",kSKPSMTPPartContentTransferEncodingKey, nil];
+    NSDictionary *plainPart=[NSDictionary dictionaryWithObjectsAndKeys:@"text/plain; charset=UTF-8;",kSKPSMTPPartContentTypeKey,[NSString stringWithCString:[content UTF8String] encoding:NSUTF8StringEncoding],kSKPSMTPPartMessageKey,@"8bit",kSKPSMTPPartContentTransferEncodingKey, nil];
     
     [message setParts:[NSArray arrayWithObjects:plainPart, nil]];
-    message.delegate = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [message send];
     });
@@ -69,7 +70,6 @@ void UncaughtExceptionHandler(NSException *exception) {
 
 #pragma mark - SKPSMTPMessageDelegate
 -(void)messageSent:(SKPSMTPMessage *)message {
-    NSLog(@"%@",message);
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"ExceptionContent"];
 }
 
