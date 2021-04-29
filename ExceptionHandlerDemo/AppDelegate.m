@@ -49,14 +49,14 @@ void UncaughtExceptionHandler(NSException *exception) {
 - (void)sendException:(NSString *)content {
     
     SKPSMTPMessage *message = [[SKPSMTPMessage alloc]init];
-    message.fromEmail = @"15737936517@163.com";
-    message.toEmail = @"hanzhanbing@evcoming.com";
-    message.ccEmail = @"zengyulu@evcoming.com";
+    message.fromEmail = @"";
+    message.toEmail = @"";
+    message.ccEmail = @"";
     message.relayHost = @"smtp.163.com"; //smtp.ym.163.com（网易企业邮箱）smtp.163.com（网易邮箱）
     message.requiresAuth = YES;
-    message.login = @"15737936517@163.com";
-    message.pass = @"zyl5201314";
-    message.subject = @"小依休iOS端崩溃日志";
+    message.login = @"xxx@163.com";
+    message.pass = @"";
+    message.subject = @"";
     message.wantsSecure = YES;
     message.delegate = self;
     
